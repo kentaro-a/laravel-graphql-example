@@ -26,7 +26,7 @@ type Job {
 
 type Query {
     user(id: Int! @eq): User! @find
-    user_list: [User!]! @all
+    user_list(orderBy: _ @orderBy(columns: ["id"])): [User!]! @all
     job_list(usr_id: Int! @eq, orderBy: _ @orderBy(columns: ["id", "name"])): [Job!]! @all
 }
 
