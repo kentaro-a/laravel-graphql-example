@@ -1,0 +1,55 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+
+type User {
+    id: Int!
+    name: String!
+    mail: String!
+    password: String!
+    last_login_at: DateTime!
+	jobs: [Job] @hasMany
+}
+
+type Job {
+    id: Int!
+    usr_id: Int!
+    name: String!
+    status: Int!
+    created_at: DateTime!
+	user: User! @belongsTo
+}
+
+
+type Query {
+    user(id: Int! @eq): User! @find
+    user_list: [User!]! @all
+    job_list(usr_id: Int! @eq, orderBy: _ @orderBy(columns: ["id", "name"])): [Job!]! @all
+}
+
+
+type Mutation {
+	user_add (
+		name: String @rules(apply: ["required", "max:20"], attribute: "ユーザーID")
+		mail: String @rules(apply: ["required", "unique:users", "email", "max:255"])
+		password: String @rules(apply: ["required"])
+	): User @create(model: "App\\Models\\User")
+
+	user_modify (
+		id: Int @rules(apply: ["required"], attribute: "ユーザーID")
+		name: String @rules(apply: ["filled", "max:20"])
+		mail: String @rules(apply: ["email", "max:255"])
+		password: String @rules(apply: ["filled", "min:6"])
+	): User @update(model: "App\\Models\\User")
+
+	job_add (
+		usr_id: Int! @rules(apply: ["required", "exists:users,id"], attribute: "ユーザーID")
+		name: String @rules(apply: ["required", "max:255"], attribute: "Job名")
+		status: Int! @rules(apply: ["required", "integer", "max:9", "min:0"])
+	): Job @create(model: "App\\Models\\Job")
+
+
+}
