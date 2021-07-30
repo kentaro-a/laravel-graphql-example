@@ -21,5 +21,5 @@ jobs:
         run: |
           docker-compose up -d --remove-orphans db app
           docker-compose exec -T -w /app app composer install 
-          docker-compose exec app ls /app
+          docker-compose exec -T app ls /app
           docker-compose exec -T -w /app app vendor/bin/phpunit 
