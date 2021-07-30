@@ -24,6 +24,7 @@ jobs:
           docker-compose up -d --remove-orphans db app 
 
       - name: composer install 
+        run: |
           cd ${GITHUB_WORKSPACE}
           docker-compose exec -T -w /app app composer install 
 
@@ -42,5 +43,6 @@ jobs:
           done 
 
       - name: execute test
+        run: |
           cd ${GITHUB_WORKSPACE}
           docker-compose exec -T -w /app app vendor/bin/phpunit 
