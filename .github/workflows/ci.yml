@@ -28,4 +28,4 @@ jobs:
           docker-compose exec -T -w /app app ls -alt ./ 
           echo "----------"
           docker-compose exec -T -w /app app composer install 
-          docker-compose exec -T -w ${GITHUB_WORKSPACE} app vendor/bin/phpunit 
+          docker-compose exec -T -w /app app vendor/bin/phpunit 
