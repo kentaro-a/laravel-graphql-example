@@ -35,8 +35,8 @@ type Mutation {
 	user_add (
 		name: String @rules(apply: ["required", "max:20"], attribute: "ユーザーID")
 		mail: String @rules(apply: ["required", "unique:users", "email", "max:255"])
-		password: String @rules(apply: ["required"])
-	): User @create(model: "App\\Models\\User")
+		password: String @rules(apply: ["required", "min:6"])
+	): Boolean! @create(model: "App\\Models\\User")
 
 	user_modify (
 		id: Int @rules(apply: ["required"], attribute: "ユーザーID")
@@ -49,7 +49,7 @@ type Mutation {
 		usr_id: Int! @rules(apply: ["required", "exists:users,id"], attribute: "ユーザーID")
 		name: String @rules(apply: ["required", "max:255"], attribute: "Job名")
 		status: Int! @rules(apply: ["required", "integer", "max:9", "min:0"])
-	): Job @create(model: "App\\Models\\Job")
+	): Boolean! @create(model: "App\\Models\\Job")
 
 
 }
