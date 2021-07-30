@@ -1,0 +1,48 @@
+name: Testing on stg 
+
+on:
+  pull_request:
+    types:
+      - "opened"
+      - "synchronize"
+    branches: 
+      - "master"
+
+env:
+  MYENV: test 
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: docker-compose up  
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          docker-compose up -d --remove-orphans db app 
+
+      - name: composer install 
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          docker-compose exec -T -w /app app composer install 
+
+      - name: wait for db container up 
+        run: |
+          i=0
+          max_try=60
+          while ! docker-compose exec -T db mysql -uroot -p12345678abc -e "SELECT 1" >/dev/null 2>&1
+          do
+              sleep 1
+              i=$(expr $i + 1)
+              echo $i
+              if [ $max_try -lt $i ]; then
+                  break
+              fi
+          done 
+
+      - name: execute test
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          docker-compose exec -T -w /app app vendor/bin/phpunit 
