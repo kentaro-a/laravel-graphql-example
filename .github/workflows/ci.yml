@@ -1,0 +1,22 @@
+name: Testing on stg 
+
+on:
+  pull_request:
+    types:
+      - "opened"
+      - "synchronize"
+    branches: 
+      - "master"
+
+env:
+  MYENV: test 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test with docker-compose stack
+        run: |
+          docker-compose up -d --remove-orphans
+          docker-compose exec -w /app app vendor/bin/phpunit
