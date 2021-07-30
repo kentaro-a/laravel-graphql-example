@@ -22,10 +22,4 @@ jobs:
           cd ${GITHUB_WORKSPACE}
           docker-compose up -d --remove-orphans db app 
           docker-compose exec -T -w /app app composer install 
-          echo "----container ls -alt via wkdir=/app ------"
-          docker-compose exec -T -w /app app ls -alt 
-          echo "----------"
-          echo "----container ls -alt via wkdir=/app/./tests ------"
-          docker-compose exec -T -w /app app ls -alt ./tests 
-          echo "----------"
-          # docker-compose exec -T -w /app app vendor/bin/phpunit 
+          docker-compose exec -T -w /app app vendor/bin/phpunit 
