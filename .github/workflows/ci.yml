@@ -10,7 +10,8 @@ on:
 
 env:
   MYENV: test 
-
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -19,5 +20,5 @@ jobs:
       - name: Test with docker-compose stack
         run: |
           docker-compose up -d --remove-orphans
-          docker-compose exec -T -w /app app compose install 
+          docker-compose exec -T -w /app app composer install 
           docker-compose exec -T -w /app app vendor/bin/phpunit
