@@ -20,15 +20,9 @@ jobs:
       - name: Test with docker-compose stack
         run: |
           cd ${GITHUB_WORKSPACE}
-          echo "----host------"
-          ls -alt ${GITHUB_WORKSPACE} 
-          echo "----------"
           docker-compose up -d --remove-orphans db app
-          echo "----container /------"
-          docker-compose exec -T app ls -alt / 
-          echo "----------"
-          echo "----container ./------"
-          docker-compose exec -T app ls -alt ./ 
+          echo "----container ls -alt via wkdir=/app ------"
+          docker-compose exec -T -w /app app ls -alt 
           echo "----------"
           docker-compose exec -T -w /app app composer install 
-          docker-compose exec -T -w ${GITHUB_WORKSPACE} app vendor/bin/phpunit 
+          docker-compose exec -T -w /app app vendor/bin/phpunit 
