@@ -16,7 +16,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: clone repo  
+        uses: actions/checkout@v2
+
       - name: docker-compose up  
         run: |
           cd ${GITHUB_WORKSPACE}
