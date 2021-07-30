@@ -34,7 +34,7 @@ jobs:
         run: |
           i=0
           max_try=60
-          while ! docker-compose exec -T db mysql -u ${env.MYSQL_TEST_USER} -p ${env.MYSQL_TEST_PASSWORD} -e "SELECT 1" >/dev/null 2>&1
+          while ! docker-compose exec -T db mysql -u $MYSQL_TEST_USER -p $MYSQL_TEST_PASSWORD -e "SELECT 1" >/dev/null 2>&1
           do
               sleep 1
               i=$(expr $i + 1)
