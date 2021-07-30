@@ -12,8 +12,6 @@ env:
   MYENV: test 
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
-  MYSQL_TEST_USER: root
-  MYSQL_TEST_PASSWORD: 12345678abc 
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,7 +32,7 @@ jobs:
         run: |
           i=0
           max_try=60
-          while ! docker-compose exec -T db mysql -u $MYSQL_TEST_USER -p $MYSQL_TEST_PASSWORD -e "SELECT 1" >/dev/null 2>&1
+          while ! docker-compose exec -T db mysql -u root -p 12345678abc -e "SELECT 1" >/dev/null 2>&1
           do
               sleep 1
               i=$(expr $i + 1)
