@@ -21,7 +21,7 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}
           echo "----host------"
-          docker-compose exec -T app ls -alt ${GITHUB_WORKSPACE} 
+          ls -alt ${GITHUB_WORKSPACE} 
           echo "----------"
           docker-compose up -d --remove-orphans db app
           echo "----container /------"
