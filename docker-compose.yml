@@ -20,10 +20,18 @@ services:
       - PMA_PASSWORD=12345678abc
     ports:
       - 20000:80
-  app:
+  backend:
     tty: true
-    build: ./backend/
+    # build: ./backend/
+    image: minminzemi1121/laravel-test_backend:latest
     ports:
       - 20001:3000
     volumes:
       - ./backend/app:/app
+  # frontend:
+  #   tty: true
+  #   build: ./frontend/
+  #   ports:
+  #     - 20002:3000
+  #   volumes:
+  #     - ./frontend/app:/app
