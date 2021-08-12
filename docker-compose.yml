@@ -28,10 +28,13 @@ services:
       - 20001:3000
     volumes:
       - ./backend/app:/app
-  # frontend:
-  #   tty: true
-  #   build: ./frontend/
-  #   ports:
-  #     - 20002:3000
-  #   volumes:
-  #     - ./frontend/app:/app
+  frontend:
+    tty: true
+    # build: ./frontend/
+    image: minminzemi1121/laravel-test_frontend:latest
+    ports:
+      - 20002:3000
+    volumes:
+      - ./frontend/app:/app
+
+
