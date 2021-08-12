@@ -125,6 +125,11 @@ class JobControllerTest extends TestCase
 		$res = $this->postJson('/api/rest/job/add', $add_job);
 		$res->assertStatus(400);
 		$this->assertDatabaseMissing('jobs', $add_job);
+
+		$add_job = ["usr_id"=>1, "name"=>"aaa","status"=>0x10];
+		$res = $this->postJson('/api/rest/job/add', $add_job);
+		$res->assertStatus(400);
+		$this->assertDatabaseMissing('jobs', $add_job);
 	}
 
 }

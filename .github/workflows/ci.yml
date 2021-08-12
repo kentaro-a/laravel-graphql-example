@@ -21,18 +21,18 @@ jobs:
       - name: docker-compose up  
         run: |
           cd ${GITHUB_WORKSPACE}
-          docker-compose up -d --remove-orphans db app 
+          docker-compose up -d --remove-orphans db backend 
 
       - name: composer install 
         run: |
           cd ${GITHUB_WORKSPACE}
-          docker-compose exec -T -w /app app composer install 
+          docker-compose exec -T -w /app backend composer install 
 
       - name: wait for db container up 
         run: |
           i=0
           max_try=60
-          while ! docker-compose exec -T db mysql -uroot -p12345678abc -e "SELECT 1" >/dev/null 2>&1
+          while ! docker-compose exec -T db mysql -u root -p 12345678abc -e "SELECT 1" >/dev/null 2>&1
           do
               sleep 1
               i=$(expr $i + 1)
@@ -45,4 +45,4 @@ jobs:
       - name: execute test
         run: |
           cd ${GITHUB_WORKSPACE}
-          docker-compose exec -T -w /app app vendor/bin/phpunit 
+          docker-compose exec -T -w /app backend vendor/bin/phpunit 
