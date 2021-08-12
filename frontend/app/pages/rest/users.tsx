@@ -60,18 +60,19 @@ class Users extends React.Component {
 				<div style={{marginTop: '2em'}}>
 					<button onClick={this.deleteItem}>del</button>
 					{
-						this.state.user_list.length > 0 ??
+						this.state.user_list.length > 0 && 
 						(
-
 							<table>
-							{this.state.user_list.map((u,i) => {
-								return (
-									<tr key={i}>
-										<td>{u.id}</td>
-										<td>{u.name}</td>
-									</tr>
-								)
-							})}
+								<tbody>
+									{this.state.user_list.map((u,i) => {
+										return (
+											<tr key={i}>
+												<td>{u.id}</td>
+												<td>{u.name}</td>
+											</tr>
+										)
+									})}
+								</tbody>
 							</table>
 						)
 					}

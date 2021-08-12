@@ -59,7 +59,7 @@ class Users extends React.Component<{user_list: []}, {user_list: []}> {
 					<button onClick={this.deleteItem}>del</button>
 					<div>
 						{
-							this.state.user_list.length > 0 ??
+							this.state.user_list.length > 0 && 
 							(
 								<table>
 									<tbody>
