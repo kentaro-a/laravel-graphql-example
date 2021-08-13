@@ -1,5 +1,12 @@
+type User = {
+	id: number
+	name: string
+	mail: string
+}
+
+
 type State = {
-	current_count: number
+	user?: User
 }
 
 export default State

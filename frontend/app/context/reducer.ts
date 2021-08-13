@@ -1,16 +1,12 @@
 import Action from "./Action"
 import ActionType from "./ActionType"
 import State from "./State"
-import increment from "./reducers/increment"
-import decrement from "./reducers/decrement"
+import login from "./reducers/login"
 
 const reducer = (state: State, action: Action): State => {
 	switch (action.type) {
-		case ActionType.INC:
-			state = increment(state, action) 
-			return state 
-		case ActionType.DEC:
-			state = decrement(state, action) 
+		case ActionType.LOGIN:
+			state = login(state, action) 
 			return state 
 		default:
 			return state

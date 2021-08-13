@@ -1,6 +1,5 @@
 const ActionType = {
-	INC: "INC",
-	DEC: "DEC",
+	LOGIN: "LOGIN",
 } as const
 
 
