@@ -1,3 +1,4 @@
+# mutagen compose -f mutagen-compose.yml up
 version: '3'
 services:
   db:
@@ -35,6 +36,25 @@ services:
     ports:
       - 20002:3000
     volumes:
-      - ./frontend/app:/app:delegated
+      - frontend:/app
 
 
+volumes:
+  frontend:
+
+# https://tech.griphone.co.jp/2020/09/17/accelerate-docker-with-mutagen/
+x-mutagen:
+  sync:
+    defaults:
+      ignore:
+        vcs: true
+    frontend:
+      alpha: "./frontend/app"
+      beta: "volume://frontend"
+      mode: "two-way-resolved"
+      ignore:
+        paths:
+      configurationBeta:
+        permissions:
+          defaultFileMode: 0666
+          defaultDirectoryMode: 0777

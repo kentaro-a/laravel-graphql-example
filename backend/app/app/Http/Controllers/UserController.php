@@ -17,7 +17,7 @@ class UserController extends Controller
 			"errors" => [],
 			"results" => [],
 		];
-		$users = User::orderBy("id","DESC")->get(["id","name"]);
+		$users = User::orderBy("id","DESC")->get(["id","name","mail"]);
 		$res["results"] = $users;
 		return response()->json($res, $res["status"]);
 	}
