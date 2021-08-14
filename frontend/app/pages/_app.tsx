@@ -1,8 +1,10 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css'
 import React, { useReducer, useContext, createContext } from 'react';
 import ActionType from "context/ActionType"
 import initial_state from "context/initial_state"
 import reducer from "context/reducer"
+import Layout from "components/Layout"
 
 const Context = createContext()
 export {Context}
@@ -12,7 +14,9 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<Context.Provider value={{state, dispatch}}>
-			<Component {...pageProps} />
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
 		</Context.Provider>
 	)
 }

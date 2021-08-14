@@ -33,51 +33,42 @@ const Users = (props) => {
 			<Head>
 				<title>Users</title>
 			</Head>
-			<div style={{marginTop: '2em'}}>
-				<UserAdd refreshUsers={refreshUsers}/>
-			</div>
 
-			{state.user &&
-			<div style={{marginTop: '2em'}}>
-				<p>login user</p>
-				ID: {state.user.id}<br />
-				Name: {state.user.name}<br />
-				Mail: {state.user.mail}<br />
-			</div>	
-			}
-
-			<div style={{marginTop: '2em'}}>
-				{
-					user_list.length > 0 && 
-					(
-						<table>
-							<tbody>
-								{user_list.map((u,i) => {
-									return (
-										<tr key={i}>
-											<td>{u.id}</td>
-											<td>{u.name}</td>
-											<td>{u.mail}</td>
-											<td><button onClick={() => login(u)}>login</button></td>
-											<td><button onClick={() => deleteItem(u)}>del</button></td>
-											
-										</tr>
-									)
-								})}
-							</tbody>
-						</table>
-					)
-				}
+			
+			<div className="row">
+				<div className="col-3">
+					<UserAdd refreshUsers={refreshUsers}/>
+				</div>
+				<div className="col-9">
+					{
+						user_list.length > 0 && 
+						(
+							<table className="table table-striped">
+								<tbody>
+									{user_list.map((u,i) => {
+										return (
+											<tr key={i}>
+												<td>{u.id}</td>
+												<td>{u.name}</td>
+												<td>{u.mail}</td>
+												<td><button className="btn btn-info" onClick={() => login(u)}>login</button></td>
+												<td><button className="btn btn-danger" onClick={() => deleteItem(u)}>del</button></td>
+												
+											</tr>
+										)
+									})}
+								</tbody>
+							</table>
+						)
+					}
+				</div>
 			</div>
 		</>
 	)
 }
 
 const getUsers = async () => {
-	let url = `${process.env.NEXT_PUBLIC_BACKEND_URL_OUT_OF_CONTAINER}/api/rest/user/list`
-	if (typeof window === 'undefined') {
-		url = `${process.env.NEXT_PUBLIC_BACKEND_BASE_URI}/api/rest/user/list`
-	}
+	let url = `${process.env.NEXT_PUBLIC_BACKEND_BASE_URI}/api/rest/user/list`
 	const res = await fetch(url)
 	const json = await res.json()
 	return json.results

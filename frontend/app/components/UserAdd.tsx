@@ -25,7 +25,7 @@ const UserAdd = ({refreshUsers}) => {
 				headers: {"Content-Type": "application/json"},
 				body: JSON.stringify(user), 
 			}
-			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL_OUT_OF_CONTAINER}/api/rest/user/add`, body)
+			const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URI}/api/rest/user/add`, body)
 			const json = await res.json()
 			if (json.status !== 200) {
 				const error_messages = Object.values(json.errors).reduce((a,b) => a.concat(b))
@@ -51,17 +51,20 @@ const UserAdd = ({refreshUsers}) => {
 					})}
 				</div>
 			}
-			<div>
-				Name: <input name="name" type="text" value={user.name} onChange={(e)=>change(e)} />
+			<div className="form-group">
+				<label for="name">Name</label>
+				<input className="form-control" id="name" name="name" type="text" value={user.name} onChange={(e)=>change(e)} />
 			</div>
-			<div>
-				Mail: <input name="mail" type="text" value={user.mail} onChange={(e)=>change(e)} />
+			<div className="form-group">
+				<label for="name">Mail</label>
+				<input className="form-control" id="mail" name="mail" type="text" value={user.mail} onChange={(e)=>change(e)} />
 			</div>
-			<div>
-				Password: <input name="password" type="password" value={user.password} onChange={(e)=>change(e)} />
+			<div className="form-group">
+				<label for="password">Password</label>
+				<input className="form-control" id="password" name="password" type="password" value={user.password} onChange={(e)=>change(e)} />
 			</div>
-			<div>
-				<button onClick={register}>register</button>
+			<div className="form-group mt-3">
+				<button className="btn btn-primary" onClick={register}>Register</button>
 			</div>
 		</div>
 	)
